@@ -1,9 +1,11 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { lazy, useEffect, useState, Suspense } from 'react'
 import Nav from './Nav';
-import Card from './Card';
+const Card = lazy(() => import('./Card'));
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { IoMdPersonAdd } from "react-icons/io";
+import { TiDeleteOutline } from "react-icons/ti";
 
 const RegisterSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -153,17 +155,17 @@ const Home = () => {
             <Nav
                 handleData={setdata}
             />
-            <div className='flex flex-col gap-2 mt-3 relative'>
-                <div className='flex justify-between'>
-                    <h1 className='font-bold'>Employee</h1>
+            <div className='flex flex-col h-full gap-2 mt-3 relative'>
+                <div className='flex justify-between p-2'>
+                    <h1 className='font-bold text-2xl'>Employee</h1>
                     <button onClick={() => {
                         handleModal(true)
-                    }} className='rounded-full px-2 py-1 bg-blue-700'>Add Employee</button>
+                    }} className='rounded-full px-4 py-2 bg-fuchsia-500'><IoMdPersonAdd /></button>
                 </div>
-                <div className={`min-h-full w-full bg-black bg-opacity-45 z-10 absolute items-center justify-center ${modal ? "flex" : "hidden"}`}>
+                <div className={`h-full w-full rounded-lg bg-black bg-opacity-45 z-10 absolute items-center justify-center ${modal ? "flex" : "hidden"}`}>
                     <div className='border rounded-md min-w-96 w-fit  bg-blue-300'>
                         <div className='flex justify-end'>
-                            <button onClick={() => { openModal(false) }} className='bg-red-600 px-2 text-white font-bold'>X</button>
+                            <button onClick={() => { openModal(false) }} className='rounded-full text-black px-2 py-2 text-2xl font-bold'><TiDeleteOutline /></button>
                         </div>
                         <Formik
                             initialValues={isRegister ? initialValuesRegister : {
@@ -193,7 +195,7 @@ const Home = () => {
                                             return (
                                                 <>
                                                     <div className="flex gap-3 items-center" key={field}>
-                                                        <label htmlFor={field}>{field.charAt(0).toUpperCase() + field.slice(1)}</label>
+                                                        <label className='font-semibold' htmlFor={field}>{field.charAt(0).toUpperCase() + field.slice(1)} : </label>
                                                         <input
                                                             onBlur={handleBlur}
                                                             onChange={handleChange}
@@ -211,7 +213,7 @@ const Home = () => {
                                         )}
 
                                         <div className="flex gap-3 items-center">
-                                            <label htmlFor="doj">Date Of Joining</label>
+                                            <label className='font-semibold' htmlFor="doj">Date Of Joining : </label>
                                             <input
                                                 onBlur={handleBlur}
                                                 onChange={handleChange}
@@ -225,7 +227,7 @@ const Home = () => {
                                         </div>
 
                                         <div className="flex gap-3 items-center">
-                                            <label htmlFor="profile">Profile photo</label>
+                                            <label className='font-semibold' htmlFor="profile">Profile photo :</label>
                                             <input
                                                 onBlur={handleBlur}
                                                 onChange={(e) => setFieldValue('picture', e.currentTarget.files[0])}
@@ -241,28 +243,30 @@ const Home = () => {
                                     </form>
                                 )
                             }}
-
                         </Formik>
                     </div>
                 </div>
-                <div className='flex flex-wrap w-full gap-2'>
+                <div className='flex flex-wrap w-full p-3 gap-2'>
 
                     {
                         !data ? null :
                             data?.map((e, idx) => {
                                 return (
-                                    <Card
-                                        key={idx}
-                                        firstName={e.firstName}
-                                        lastName={e.lastName}
-                                        salary={e.salary}
-                                        desig={e.designation}
-                                        dept={e.department}
-                                        email={e.email}
-                                        profile={e.profile}
-                                        modal={() => { handleModal(false, e) }}
-                                        reload={getAllUsers}
-                                    />)
+                                    <Suspense fallback={<div className='h-full w-full text-center font-bold text-3xl'>Loading...</div>}>
+                                        <Card
+                                            key={idx}
+                                            firstName={e.firstName}
+                                            lastName={e.lastName}
+                                            salary={e.salary}
+                                            desig={e.designation}
+                                            dept={e.department}
+                                            email={e.email}
+                                            profile={e.profile}
+                                            modal={() => { handleModal(false, e) }}
+                                            reload={getAllUsers}
+                                        />
+                                    </Suspense>
+                                )
                             })
                     }
                 </div>

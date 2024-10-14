@@ -7,7 +7,7 @@ const Nav = ({ handleData }) => {
 
     const searchUsers = async () => {
         try {
-            console.log(searchQuery);
+            // console.log(searchQuery);
             axios.post('https://skyniche-server.onrender.com/api/user/search', {
                 searchquery: searchQuery
             })
@@ -24,12 +24,12 @@ const Nav = ({ handleData }) => {
         }
     }
 
-    console.log(searchQuery);
+    // console.log(searchQuery);
 
 
     return (
         <>
-            <nav className='flex justify-between'>
+            <nav className='flex justify-between p-2 bg-fuchsia-700'>
                 <div className='flex gap-3 items-center bg-slate-600 rounded-full'>
                     <span className='bg-red-500 rounded-full w-8 h-8 flex items-center justify-center font-bold'>S</span>
                     <p className='mr-4 text-orange-400' >DashBoard</p>

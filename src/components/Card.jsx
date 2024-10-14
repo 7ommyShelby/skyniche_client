@@ -3,8 +3,6 @@ import React, { useState } from 'react'
 import { CiEdit } from "react-icons/ci";
 import { AiTwotoneDelete } from "react-icons/ai";
 
-
-
 const Card = ({ reload, modal, firstName, lastName, salary, desig, dept, email, profile }) => {
 
     const delUser = async (email) => {

@@ -155,15 +155,15 @@ const Home = () => {
             <Nav
                 handleData={setdata}
             />
-            <div className='flex flex-col h-full gap-2 mt-3 relative'>
+            <div className='flex flex-col min-h-fit h-full gap-2 mt-3 relative'>
                 <div className='flex justify-between p-2'>
                     <h1 className='font-bold text-2xl'>Employee</h1>
                     <button onClick={() => {
                         handleModal(true)
                     }} className='rounded-full px-4 py-2 bg-fuchsia-500'><IoMdPersonAdd /></button>
                 </div>
-                <div className={`h-full w-full rounded-lg bg-black bg-opacity-45 z-10 absolute items-center justify-center ${modal ? "flex" : "hidden"}`}>
-                    <div className='border rounded-md min-w-96 w-fit  bg-blue-300'>
+                <div className={`min-h-full w-full rounded-lg bg-black bg-opacity-45 z-10 absolute items-center justify-center ${modal ? "flex" : "hidden"}`}>
+                    <div className='border w-fit rounded-md min-w-80 bg-blue-300'>
                         <div className='flex justify-end'>
                             <button onClick={() => { openModal(false) }} className='rounded-full text-black px-2 py-2 text-2xl font-bold'><TiDeleteOutline /></button>
                         </div>
@@ -194,7 +194,7 @@ const Home = () => {
 
                                             return (
                                                 <>
-                                                    <div className="flex gap-3 items-center" key={field}>
+                                                    <div className="flex gap-3 flex-wrap w-full justify-start items-center" key={field}>
                                                         <label className='font-semibold' htmlFor={field}>{field.charAt(0).toUpperCase() + field.slice(1)} : </label>
                                                         <input
                                                             onBlur={handleBlur}
@@ -212,7 +212,7 @@ const Home = () => {
                                         }
                                         )}
 
-                                        <div className="flex gap-3 items-center">
+                                        <div className="flex gap-3 flex-wrap items-center">
                                             <label className='font-semibold' htmlFor="doj">Date Of Joining : </label>
                                             <input
                                                 onBlur={handleBlur}
@@ -226,12 +226,12 @@ const Home = () => {
                                             {touched.doj && errors.doj && <div className="text-red-500">{errors.doj}</div>}
                                         </div>
 
-                                        <div className="flex gap-3 items-center">
+                                        <div className="flex gap-3 flex-wrap items-center">
                                             <label className='font-semibold' htmlFor="profile">Profile photo :</label>
                                             <input
                                                 onBlur={handleBlur}
                                                 onChange={(e) => setFieldValue('picture', e.currentTarget.files[0])}
-                                                className={`px-2 py-1 rounded-md bg-slate-300 ${touched.doj && errors.doj ? 'border-red-500' : ''}`}
+                                                className={`min-w-[1.5rem] px-2 py-1 rounded-md bg-slate-300 ${touched.doj && errors.doj ? 'border-red-500' : ''}`}
                                                 type="file"
                                                 name="picture"
                                                 id="picture"
@@ -254,7 +254,7 @@ const Home = () => {
                                 return (
                                     <Suspense fallback={<div className='h-full w-full text-center font-bold text-3xl'>Loading...</div>}>
                                         <Card
-                                            key={idx}
+                                            key={idx+1}
                                             firstName={e.firstName}
                                             lastName={e.lastName}
                                             salary={e.salary}

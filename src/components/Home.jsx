@@ -6,6 +6,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { IoMdPersonAdd } from "react-icons/io";
 import { TiDeleteOutline } from "react-icons/ti";
+import { InfinitySpin } from 'react-loader-spinner'
 
 const RegisterSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -246,15 +247,24 @@ const Home = () => {
                         </Formik>
                     </div>
                 </div>
-                <div className='flex flex-wrap w-full p-3 gap-2'>
+                <div className='flex flex-wrap justify-center md:justify-start w-full p-3 gap-2'>
 
                     {
-                        !data ? null :
+                        !data ?
+                            <div className='flex justify-center items-center w-full h-screen'>
+                                <InfinitySpin
+                                    visible={true}
+                                    width="200"
+                                    color="#4fa94d"
+                                    ariaLabel="infinity-spin-loading"
+                                />
+                            </div>
+                            :
                             data?.map((e, idx) => {
                                 return (
                                     <Suspense fallback={<div className='h-full w-full text-center font-bold text-3xl'>Loading...</div>}>
                                         <Card
-                                            key={idx+1}
+                                            key={idx + 1}
                                             firstName={e.firstName}
                                             lastName={e.lastName}
                                             salary={e.salary}

@@ -25,7 +25,7 @@ const Card = ({ reload, modal, firstName, lastName, salary, desig, dept, email, 
 
     return (
 
-        <div className='bg-indigo-300 p-2 flex flex-col w-56 flex-shrink-0 rounded-2xl'>
+        <div className='bg-indigo-300 p-2 flex flex-col w-full sm:w-60 flex-shrink-0 rounded-2xl'>
             <div className='flex justify-end'>
                 <button onClick={() => { delUser(email) }} className=' bg-blue-700 rounded-md py-2 px-2 font-semibold'><AiTwotoneDelete /></button>
             </div>
